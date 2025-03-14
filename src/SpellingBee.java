@@ -53,6 +53,10 @@ public class SpellingBee {
         // YOUR CODE HERE
     }
 
+    public void mergeSort() {
+
+    }
+
     // Removes duplicates from the sorted list.
     public void removeDuplicates() {
         int i = 0;
@@ -67,30 +71,37 @@ public class SpellingBee {
 
     public void checkWords() {
         // Binary search to see if it is in the dictionary
-        for (int i = 0; i < words.size(); i++){
+        for (int i = 0; i < words.size(); i++) {
             // If it is not in the dictionary, remove it from words.
-            if (!checkWord(words.get(i), 0, DICTIONARY_SIZE - 1)){
+            if (!checkWord(words.get(i), 0, DICTIONARY_SIZE - 1)) {
                 words.remove(i);
                 i--;
             }
         }
     }
 
-    public boolean checkWord(String word, int start, int end){
+    public boolean checkWord(String word, int start, int end) {
+        // The middle of the array that you're looking it is the value you're comparing
+        // to the target
         int mid = start + (end - start) / 2;
 
-        if (DICTIONARY[mid].equals(word)){
+        // Return true if the word is found in the dictionary
+        if (DICTIONARY[mid].equals(word)) {
             return true;
         }
 
-        if (start == end){
+        // If it's an uneven number of elements in the array and all of them have been checked,
+        // return false
+        if (start == end) {
             return false;
         }
 
-        if (word.compareTo(DICTIONARY[mid]) < 0){
+        // Look at the first half of the array if the target is less than the midpoint
+        if (word.compareTo(DICTIONARY[mid]) < 0) {
             return checkWord(word, start, mid);
         }
 
+        // Look at the second half of the array if the target is greater than the midpoint
         return checkWord(word, mid + 1, end);
     }
 
