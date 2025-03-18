@@ -30,7 +30,7 @@ import java.util.Scanner;
  */
 public class SpellingBee {
 
-    private String letters;
+    private final String letters;
     private ArrayList<String> words;
     public static final int DICTIONARY_SIZE = 143091;
     public static final String[] DICTIONARY = new String[DICTIONARY_SIZE];
