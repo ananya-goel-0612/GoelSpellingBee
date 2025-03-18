@@ -40,20 +40,27 @@ public class SpellingBee {
         words = new ArrayList<String>();
     }
 
-    // TODO: generate all possible substrings and permutations of the letters.
-    //  Store them all in the ArrayList words. Do this by calling ANOTHER method
-    //  that will find the substrings recursively.
     public void generate() {
         generateWords("", letters);
     }
 
+    // Recursive method that generates all possible permutations of the letters entered
     public void generateWords (String word, String letters) {
+        // If there are no more letters to add, a base case is hit and the word is added to words
         if (letters.isEmpty()) {
             words.add(word);
             return;
         }
 
+        // Generates each possible permutation, given the letters
+        for (int i = 0; i < letters.length(); i++) {
+            // Calls the method again with a different section of the letters inputted
+            generateWords(word + letters.charAt(i), letters.substring(0, i)
+                    + letters.substring(i + 1));
+        }
 
+        // Adds the word to words
+        words.add(word);
     }
 
     public void sort() {
@@ -62,19 +69,24 @@ public class SpellingBee {
 
     // Merges the two arraylists together and returns the sorted arraylist of strings
     public ArrayList<String> merge(ArrayList<String> arr1, ArrayList<String> arr2) {
+        // Creates a new ArrayList to hold the sorted elements
         ArrayList<String> sorted = new ArrayList<String>();
         int index1 = 0;
         int index2 = 0;
 
+        // Executes until the end of one of the arrays is reached
         while (index1 < arr1.size() && index2 < arr2.size()) {
+            // If the value of arr1 is greater than arr2, add that to the sorted array
             if (arr1.get(index1).compareTo(arr2.get(index2)) <= 0 ) {
                 sorted.add(arr1.get(index1++));
             }
+            // Otherwise the element in arr2 is greater and that gets added
             else {
                 sorted.add(arr2.get(index2++));
             }
         }
 
+        // If there are leftover elements in either of the arrays, those all get added to sorted
         while (index1 < arr1.size()) {
             sorted.add(arr1.get(index1++));
         }
@@ -82,21 +94,27 @@ public class SpellingBee {
             sorted.add(arr2.get(index2++));
         }
 
+        // The ArrayList containing the sorted elements is returned, once everything is added
         return sorted;
     }
 
+    // Merge Sort implementation to sort the strings
     public ArrayList<String> mergeSort(ArrayList<String> arr, int low, int high) {
+        // Base Case: The main ArrayList gets split into individual ArrayLists
         if (high == low) {
             ArrayList<String> newArr = new ArrayList<String>();
             newArr.add(arr.get(low));
             return newArr;
         }
 
+        // Midpoint
         int med = (high + low) / 2;
 
+        // Recursively calls mergeSort on the left half and the right half of the ArrayList
         ArrayList<String> arr1 = mergeSort(arr, low, med);
         ArrayList<String> arr2 = mergeSort(arr, med + 1, high);
 
+        // Merges the two ArrayLists together and returns the sorted ArrayList
         return merge(arr1, arr2);
     }
 
