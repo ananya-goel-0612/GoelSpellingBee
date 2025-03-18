@@ -51,10 +51,26 @@ public class SpellingBee {
     //  that will find the substrings recursively.
     public void sort() {
         // YOUR CODE HERE
+        words = mergeSort(words, 0, words.size()-1);
     }
 
-    public void mergeSort() {
+    public ArrayList<String> merge(ArrayList<String> arr1, ArrayList<String> arr2) {
 
+    }
+
+    public ArrayList<String> mergeSort(ArrayList<String> arr, int low, int high) {
+        if (high == low) {
+            ArrayList<String> newArr = new ArrayList<String>();
+            newArr.add(arr.get(low));
+            return newArr;
+        }
+
+        int med = (high + low) / 2;
+
+        ArrayList<String> arr1 = mergeSort(arr, low, med);
+        ArrayList<String> arr2 = mergeSort(arr, med + 1, high);
+
+        return merge(arr1, arr2);
     }
 
     // Removes duplicates from the sorted list.
