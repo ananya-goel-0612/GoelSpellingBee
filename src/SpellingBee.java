@@ -50,12 +50,32 @@ public class SpellingBee {
     // TODO: Apply mergesort to sort all words. Do this by calling ANOTHER method
     //  that will find the substrings recursively.
     public void sort() {
-        // YOUR CODE HERE
         words = mergeSort(words, 0, words.size()-1);
     }
 
+    // Merges the two arraylists together and returns the sorted arraylist of strings
     public ArrayList<String> merge(ArrayList<String> arr1, ArrayList<String> arr2) {
+        ArrayList<String> sorted = new ArrayList<String>();
+        int index1 = 0;
+        int index2 = 0;
 
+        while (index1 < arr1.size() && index2 < arr2.size()) {
+            if (arr1.get(index1).compareTo(arr2.get(index2)) <= 0 ) {
+                sorted.add(arr1.get(index1++));
+            }
+            else {
+                sorted.add(arr2.get(index2++));
+            }
+        }
+
+        while (index1 < arr1.size()) {
+            sorted.add(arr1.get(index1++));
+        }
+        while (index2 < arr2.size()) {
+            sorted.add(arr2.get(index2++));
+        }
+
+        return sorted;
     }
 
     public ArrayList<String> mergeSort(ArrayList<String> arr, int low, int high) {
